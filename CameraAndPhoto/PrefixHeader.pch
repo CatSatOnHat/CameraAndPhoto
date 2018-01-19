@@ -1,0 +1,28 @@
+//
+//  PrefixHeader.pch
+//  CameraAndPhoto
+//
+//  Created by 李朕 on 2018/1/17.
+//  Copyright © 2018年 Dan. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define SCREENW [UIScreen mainScreen].bounds.size.width
+#define SCREENH [UIScreen mainScreen].bounds.size.height
+
+#define ControlsWidth6(x) [UIScreen mainScreen].bounds.size.width/375.0*(x)
+#define ControlsHeight6(x) [UIScreen mainScreen].bounds.size.height/667.0*(x)
+
+#define kChangeImage @"changeImage"
+
+#import <AVFoundation/AVFoundation.h>
+#import <BlocksKit+UIKit.h>
+
+#import "PhotoTool.h"
+
+#endif /* PrefixHeader_pch */
