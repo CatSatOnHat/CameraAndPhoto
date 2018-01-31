@@ -13,7 +13,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
     _firstImageV.contentMode = UIViewContentModeScaleAspectFill;
     _firstImageV.clipsToBounds = YES;
 }

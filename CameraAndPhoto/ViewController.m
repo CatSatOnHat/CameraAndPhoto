@@ -34,7 +34,7 @@
                 NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                 if ([[UIApplication sharedApplication] canOpenURL:url]) {
                     [[UIApplication sharedApplication] openURL:url];
-                }                
+                }
             }
         }];
     } else {
@@ -48,7 +48,7 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (status == PHAuthorizationStatusAuthorized) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                PhotoAlbumListVC *listVC = [[PhotoAlbumListVC alloc] init];
+                PhotoAlbumListVC *listVC = [PhotoAlbumListVC shareAlbumListVC];
                 listVC.selectedCount = 4;
                 UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:listVC];
                 [self presentViewController:navi animated:YES completion:nil];
@@ -67,6 +67,7 @@
         }
     }];
 }
+
 - (void)change:(NSNotification *)noti {
     UIImage *icon = [noti object];
     _imageV.image = icon;

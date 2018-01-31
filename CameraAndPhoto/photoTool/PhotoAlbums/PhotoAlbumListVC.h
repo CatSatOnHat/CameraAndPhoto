@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface PhotoAlbumListVC : UIViewController
+
+/**
+ 单例 （不知道有没有必要）
+
+ @return instancetype
+ */
++ (instancetype)shareAlbumListVC;
 /**
  选取图片的数量 设置0或者不设置---选取头像  设置1以上---选取多张图片
  */

@@ -20,9 +20,14 @@
     CGSize size = self.frame.size;
     size.width *= [UIScreen mainScreen].scale;
     size.height *= [UIScreen mainScreen].scale;
-    [[PhotoTool shareTool] getImageByAsset:dataArray[indexPath.row] targetSize:size resizeMode:PHImageRequestOptionsResizeModeNone completion:^(UIImage *AssetImage) {
-        _photoImageV.image = AssetImage;
-    }];
+    // 异步串行队列
+    dispatch_async(dispatch_queue_create("photoList", NULL), ^{
+        [[PhotoTool shareTool] getImageByAsset:dataArray[indexPath.row] targetSize:size resizeMode:PHImageRequestOptionsResizeModeNone completion:^(UIImage *AssetImage) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _photoImageV.image = AssetImage;
+            });
+        }];
+    });
 }
 
 

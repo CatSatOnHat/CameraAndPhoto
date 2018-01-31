@@ -36,6 +36,11 @@
 @interface PhotoTool : NSObject
 
 /**
+ 保存打开过的相册（读相册比较耗时）
+ */
+@property (nonatomic, strong) NSMutableDictionary *PHAssetsDic;
+
+/**
  创建单例
 
  @return 返回实例

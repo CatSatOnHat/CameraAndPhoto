@@ -22,6 +22,14 @@
     });
     return tool;
 }
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _PHAssetsDic = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
 
 - (NSArray<PhotoAlbum *> *)getAllPhotoAlbums {
     NSMutableArray<PhotoAlbum *> *photoAlbums = [NSMutableArray array];
@@ -64,12 +72,19 @@
 }
 
 - (NSArray<PHAsset *> *)getPhotosInAssetCollection:(PHAssetCollection *)assetCollection ascending:(BOOL)ascending {
-    NSMutableArray<PHAsset *> *assets = [NSMutableArray array];
-    PHFetchResult *result = [self fetchAssetsInAssetCollection:assetCollection ascending:ascending];
-    [result enumerateObjectsUsingBlock:^(PHAsset * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [assets addObject:obj];
-    }];
-    return assets;
+    if ([[_PHAssetsDic allKeys] containsObject:assetCollection]) {
+        //如果之前读取过就直接返回
+        return [_PHAssetsDic objectForKey:assetCollection];
+    } else {
+        NSMutableArray<PHAsset *> *assets = [NSMutableArray array];
+        PHFetchResult *result = [self fetchAssetsInAssetCollection:assetCollection ascending:ascending];
+        [result enumerateObjectsUsingBlock:^(PHAsset * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [assets addObject:obj];
+        }];
+        //保存，方便下次读取
+        [_PHAssetsDic setObject:assets forKey:assetCollection];
+        return assets;
+    }
 }
 
 - (NSArray<PHAsset *> *)getAllPhotosByAscending:(BOOL)ascending {

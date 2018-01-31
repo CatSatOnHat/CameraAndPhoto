@@ -22,10 +22,18 @@ static const CGFloat cell_height = 60;
 
 @implementation PhotoAlbumListVC
 
++ (instancetype)shareAlbumListVC {
+    static PhotoAlbumListVC *albumListVC;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        albumListVC = [[PhotoAlbumListVC alloc] init];
+    });
+    return albumListVC;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self.view addSubview:self.albumList];
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,6 +69,7 @@ static const CGFloat cell_height = 60;
     return CGFLOAT_MIN;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     PhotoListVC *photoListVC = [[PhotoListVC alloc] init];
     photoListVC.selectedCount = _selectedCount;
     photoListVC.title = self.photoAlbums[indexPath.row].title;

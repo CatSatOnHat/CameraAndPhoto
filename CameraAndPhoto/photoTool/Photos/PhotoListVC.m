@@ -33,8 +33,10 @@ static const CGFloat spacing = 5.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
     item_width = (SCREENW - spacing*(count+1)) / count;
     _isFirstLoad = YES;
+
     [self.view addSubview:self.photoCollectionView];
 }
 #pragma mark - UICollectionViewDelegate, UICollectionViewDataSource
@@ -53,16 +55,15 @@ static const CGFloat spacing = 5.0;
         }
         _isFirstLoad = NO;
     }
-    //cell
     PhotosCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PhotosCollectionViewCell class]) forIndexPath:indexPath];
     [cell configCellWithData:_photosArray indexPath:indexPath];
+
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     ClipPhotoVC *VC = [[ClipPhotoVC alloc] init];
     VC.originalAsset = _photosArray[indexPath.row];
     [self.navigationController pushViewController:VC animated:YES];
-    
 }
 
 - (UICollectionView *)photoCollectionView {
